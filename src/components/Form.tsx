@@ -1,10 +1,13 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
-const Form = ({ addTask }) => {
-  const [value, setValue] = useState('');
+interface FormProps {
+  addTask: (str: string) => void
+}
 
-  const submitHandler = event => {
+const Form: FC<FormProps> = ({ addTask }: FormProps) => {
+  const [value, setValue] = useState<string>('');
+
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (value.trim()) {
       addTask(value.trim());
@@ -14,10 +17,9 @@ const Form = ({ addTask }) => {
 
   return (
     <form onSubmit={submitHandler}>
-      <div className='form-group'>
+      <div>
         <input
           type='text'
-          className='form-control'
           placeholder='Type the task name'
           value={value}
           onChange={event => setValue(event.target.value)}

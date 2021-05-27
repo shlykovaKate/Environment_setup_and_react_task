@@ -6,7 +6,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: path.resolve(__dirname, './src/index.js'),
+        main: path.resolve(__dirname, './src/index.tsx'),
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -20,7 +20,9 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new ESLintPlugin({extensions: ['js','ts']})
+        new ESLintPlugin({
+            extensions: ["js", "jsx", "ts", "tsx"],
+        })
     ],
     module: {
         rules: [
