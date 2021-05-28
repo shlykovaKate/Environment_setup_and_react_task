@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import TextField from '@material-ui/core/TextField';
 
 interface FormProps {
   addTask: (str: string) => void
@@ -7,7 +8,7 @@ interface FormProps {
 const Form: FC<FormProps> = ({ addTask }: FormProps) => {
   const [value, setValue] = useState<string>('');
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (value.trim()) {
       addTask(value.trim());
@@ -15,16 +16,19 @@ const Form: FC<FormProps> = ({ addTask }: FormProps) => {
     setValue('');
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
   return (
-    <form onSubmit={submitHandler}>
-      <div>
-        <input
-          type='text'
-          placeholder='Type the task name'
-          value={value}
-          onChange={event => setValue(event.target.value)}
-        />
-      </div>
+    <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+      <TextField
+        label='Type the task title to add it'
+        variant='outlined'        
+        value={value}
+        onChange={handleChange}
+        fullWidth
+      />
     </form>
   );
 };
