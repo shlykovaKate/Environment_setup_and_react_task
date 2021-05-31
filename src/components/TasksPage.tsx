@@ -2,18 +2,20 @@ import React, { FC, useEffect, useState } from 'react';
 import Form from './Form';
 import TasksList from './TasksList';
 import { ITask } from '../types/types';
+import Storage from '../storage/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const storage  = new Storage();
 
   const fetchTasks = () => {    
-    const data: ITask[] = JSON.parse(localStorage.getItem('data'));
+    const data: ITask[] = JSON.parse(storage.getData('data'));
     setTasks(data);
   };
 
-  const updateLocalStorage = (data: ITask[]) => {
-    localStorage.setItem('data', JSON.stringify(data));
+  const updateStorage = (data: ITask[]) => {
+    storage.setData('data', JSON.stringify(data));
   };
 
   const sortTasks = (tasks: ITask[]) => (
@@ -29,14 +31,14 @@ const TasksPage: FC = () => {
       tasks[taskId].date = date;
       const sortedTasks = sortTasks([...tasks]);
       setTasks(sortedTasks);
-      updateLocalStorage(sortedTasks);
+      updateStorage(sortedTasks);
     }
   }; 
 
   const removeTask = (id: string) => {
     const newlist = tasks.filter(task => task.id !== id);
     setTasks(newlist);
-    updateLocalStorage(newlist);
+    updateStorage(newlist);
   };
 
   const addTask = (name: string) => {
@@ -49,7 +51,7 @@ const TasksPage: FC = () => {
     const sortedTasks = sortTasks([...tasks, newTask]);
     console.log('sortedTasks', sortedTasks);
     setTasks(sortedTasks);
-    updateLocalStorage(sortedTasks);
+    updateStorage(sortedTasks);
   };
 
   useEffect(() => {
