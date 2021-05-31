@@ -22,6 +22,12 @@ module.exports = {
 	],
 	rules: {
     'semi': ['error', 'always'],
-		'quotes': ['error', 'single']		
-	}
+		'quotes': ['error', 'single'],
+		"react/display-name": "off"
+	},
+	settings: {
+    react: {      
+      version: 'detect'
+    }
+  }
 }

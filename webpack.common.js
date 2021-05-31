@@ -5,23 +5,23 @@ const webpack = require('webpack');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-    entry: {
-        main: path.resolve(__dirname, './src/index.tsx'),
-    },
+    entry: './src/index.tsx',
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'index.bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[contenthash].js',
+    },
+    performance: {
+      hints: false
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'React Tack',
-            template: path.resolve(__dirname, './src/template.html'),
-            filename: 'index.html',
+            template: './src/index.html'
         }),
         new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new ESLintPlugin({
-            extensions: ["js", "jsx", "ts", "tsx"],
+            extensions: ['js', 'jsx', 'ts', 'tsx'],
         })
     ],
     module: {
@@ -40,14 +40,5 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-    },
-    mode: 'development',
-    devServer: {
-        historyApiFallback: true,
-        contentBase: path.resolve(__dirname, './dist'),
-        open: true,
-        compress: true,
-        hot: true,
-        port: 8080,
     }
 }
