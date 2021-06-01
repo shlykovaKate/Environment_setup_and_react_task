@@ -11,7 +11,9 @@ const TasksPage: FC = () => {
 
   const fetchTasks = () => {    
     const data: ITask[] = JSON.parse(storage.getData('data'));
-    setTasks(data);
+    if (data?.length) {      
+      setTasks(data);
+    }
   };
 
   const updateStorage = (data: ITask[]) => {
@@ -49,7 +51,6 @@ const TasksPage: FC = () => {
       date
     };
     const sortedTasks = sortTasks([...tasks, newTask]);
-    console.log('sortedTasks', sortedTasks);
     setTasks(sortedTasks);
     updateStorage(sortedTasks);
   };
