@@ -9,9 +9,9 @@ const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const storage  = new Storage();
 
-  const fetchTasks = () => {    
+  const fetchTasks = () => {
     const data: ITask[] = JSON.parse(storage.getData('data'));
-    if (data?.length) {      
+    if (data?.length) {
       setTasks(data);
     }
   };
@@ -24,18 +24,15 @@ const TasksPage: FC = () => {
     tasks.sort((a: ITask, b: ITask) => b.date - a.date)
   );
 
-  const editTask = (id: string, newName: string) => {    
+  const editTask = (id: string, newName: string) => {
     const date = Date.now();
-
-    if (newName?.trim()) {
-      const taskId = tasks.findIndex(item => item.id === id);
-      tasks[taskId].name = newName;
-      tasks[taskId].date = date;
-      const sortedTasks = sortTasks([...tasks]);
-      setTasks(sortedTasks);
-      updateStorage(sortedTasks);
-    }
-  }; 
+    const taskId = tasks.findIndex(item => item.id === id);
+    tasks[taskId].name = newName;
+    tasks[taskId].date = date;
+    const sortedTasks = sortTasks([...tasks]);
+    setTasks(sortedTasks);
+    updateStorage(sortedTasks);
+  };
 
   const removeTask = (id: string) => {
     const newlist = tasks.filter(task => task.id !== id);

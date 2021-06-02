@@ -8,8 +8,8 @@ interface IStorage {
 export default class Storage {
   storage: IStorage;
 
-  constructor(getStorage = (): IStorage => window.localStorage) {
-    this.storage = getStorage();
+  constructor() {
+    this.storage = window.localStorage;
   }
 
   getData(key: string): string | null {

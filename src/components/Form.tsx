@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 interface FormProps {
-  addTask: (str: string) => void
+  addTask: (str: string) => void;
 }
 
 const Form: FC<FormProps> = ({ addTask }: FormProps) => {
@@ -21,10 +21,10 @@ const Form: FC<FormProps> = ({ addTask }: FormProps) => {
   };
 
   return (
-    <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+    <form noValidate autoComplete='off' onSubmit={handleSubmit} data-testid="form-element">
       <TextField
         label='Type the task title to add it'
-        variant='outlined'        
+        variant='outlined'
         value={value}
         onChange={handleChange}
         fullWidth
